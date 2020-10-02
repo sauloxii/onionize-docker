@@ -8,7 +8,7 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: marlluslustosa/onionize-docker/onionize-docker
+        name: marlluslustosa/onionize-docker
         username: ${{ github.actor }}
         password: ${{ secrets.CR_PAT }}
         registry: https://ghcr.io
