@@ -1,12 +1,11 @@
-FROM alpine:latest
-MAINTAINER "Moritz Bartl <moritz@torservers.net>"
+FROM alpine:3.12
 
 ENV DOCKERGEN_VERSION 0.7.4
 
 ENV DOCKER_HOST unix:///tmp/docker.sock
 
-RUN apk -U --no-progress upgrade \
- && apk -U --no-progress add tor supervisor
+RUN apk -U --no-progress upgrade --no-cache \
+ && apk -U --no-progress add tor --no-cache supervisor
 
 ENV DOWNLOAD_URL https://github.com/jwilder/docker-gen/releases/download/$DOCKERGEN_VERSION/docker-gen-alpine-linux-amd64-$DOCKERGEN_VERSION.tar.gz
 RUN wget -qO- $DOWNLOAD_URL | tar xvz -C /usr/local/bin
