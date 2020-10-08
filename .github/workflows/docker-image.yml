@@ -20,7 +20,4 @@ jobs:
     - name: Push Docker image
       run: |
         echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
-        docker push ghcr.io/${{ github.repository_owner }}/my-image-name:latest
-
-  
-
+        docker push ghcr.io/${{ github.repository_owner }}/onionize-docker:latest
