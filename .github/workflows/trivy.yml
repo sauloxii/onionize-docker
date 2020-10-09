@@ -22,7 +22,12 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           image: imega/mariadb-client
-
+      
+      - uses: nick-invision/persist-action-data@v1
+        with:
+          data: ${{ steps.trivy.outputs.html_url }}
+          variable: html_url
+      
       - name: print url html issue
         run: |
           echo ${{steps.trivy.outputs.html_url}}
@@ -36,3 +41,10 @@ jobs:
     - run: |
         echo "${{ needs.scan.steps.trivy.outputs.html_url }}"
         echo "${{ needs.scan.steps.trivy.outputs.link }}"
+
+      - uses: nick-invision/persist-action-data@v1
+        id: global-data
+        with:
+          data: ${{ steps.trivy.outputs.html_url }}
+          retrieve_variables: html_url
+      - run: echo ${{ steps.global-data.outputs.html_url }}
