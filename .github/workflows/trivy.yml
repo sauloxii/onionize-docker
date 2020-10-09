@@ -41,8 +41,7 @@ jobs:
         id: global-data
         with:
           data: ${{ steps.trivy.outputs.html_url }}
-          retrieve_variables: html_url
-      
+          retrieve_variables: html_url 
       - run: |
           echo ${{ steps.global-data.outputs.html_url }}
           echo ${{ html_url }}
