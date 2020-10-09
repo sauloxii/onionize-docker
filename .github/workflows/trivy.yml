@@ -37,13 +37,16 @@ jobs:
     runs-on: ubuntu-18.04
     needs: scan
     steps:
-      #      - name: print url html issue 
-      #    - run: |
-      #  echo "${{ needs.scan.steps.trivy.outputs.html_url }}"
-      #  echo "${{ needs.scan.steps.trivy.outputs.link }}"
       - uses: nick-invision/persist-action-data@v1
         id: global-data
         with:
           data: ${{ steps.trivy.outputs.html_url }}
           retrieve_variables: html_url
-      - run: echo ${{ steps.global-data.outputs.html_url }}
+      
+      - run: |
+          echo ${{ steps.global-data.outputs.html_url }}
+          echo ${{ html_url }}
+      
+      - name: step condicional
+        if: ${{ html_url == "https://github.com/marlluslustosa/onionize-docker/issues/12" }}
+        run: echo Deu certo a condicao do step
