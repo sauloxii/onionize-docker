@@ -21,6 +21,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           image: imega/mariadb-client
+        run: |
+          echo ${{ steps.outputs.html_url }}
+          echo ${{ html_url }}
 
   job2:
     runs-on: ubuntu-latest
