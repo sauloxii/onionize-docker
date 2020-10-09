@@ -31,5 +31,5 @@ jobs:
     runs-on: ubuntu-latest
     needs: scan
     steps:
-      - name: print url html issue 
-        run: echo ${{ jobs.scan.steps.trivy.outputs.html_url }}
+      #      - name: print url html issue 
+    - run: echo "${{ jobs.scan.steps.trivy.outputs.html_url }}"
