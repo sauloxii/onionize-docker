@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Pull docker image
-        run: docker pull ghcr.io/marlluslustosa/onionize-docker:latest
+        run: docker pull imega/mariadb-client
 
       - uses: homoluctus/gitrivy@v1.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          image: ghcr.io/marlluslustosa/onionize-docker:latest
+          image: imega/mariadb-client
