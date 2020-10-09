@@ -38,10 +38,9 @@ jobs:
     needs: scan
     steps:
       #      - name: print url html issue 
-    - run: |
-        echo "${{ needs.scan.steps.trivy.outputs.html_url }}"
-        echo "${{ needs.scan.steps.trivy.outputs.link }}"
-
+      #    - run: |
+      #  echo "${{ needs.scan.steps.trivy.outputs.html_url }}"
+      #  echo "${{ needs.scan.steps.trivy.outputs.link }}"
       - uses: nick-invision/persist-action-data@v1
         id: global-data
         with:
