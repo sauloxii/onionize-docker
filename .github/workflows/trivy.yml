@@ -26,4 +26,4 @@ jobs:
     runs-on: ubuntu-latest
     needs: scan
     steps:
-    - run: echo ${{needs.scan.outputs.html_url}}
+    - run: echo ${{ needs.scan.steps.html_url }}
