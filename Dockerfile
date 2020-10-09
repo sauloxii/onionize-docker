@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.12
 
 ENV DOCKERGEN_VERSION 0.7.4
 
