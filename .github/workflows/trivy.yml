@@ -28,4 +28,4 @@ jobs:
     needs: scan
     steps:
       - name: print url html issue 
-        run: echo ${{ scan.steps.trivy.outputs.html_url }}
+        run: echo ${{ needs.scan.steps.trivy.outputs.html_url }}
