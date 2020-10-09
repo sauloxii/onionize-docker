@@ -1,26 +1,18 @@
-name: build
+name: Vulnerability Scain (Trivy)
+
 on:
-  push:
-    branches:
-      - master
-  pull_request:
+  schedule:
+    - cron: '0 9 * * *'
+
 jobs:
-  build:
-    name: Build
+  scan:
+    name: Daily Vulnerability Scan
     runs-on: ubuntu-18.04
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      - name: Build an image from Dockerfile
-        run: |
-          docker build -t ghcr.io/marlluslustosa/onionize-docker:latest .
-      
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+      - name: Pull docker image
+        run: docker pull ghcr.io/marlluslustosa/onionize-docker:latest
+
+      - uses: homoluctus/gitrivy@v1.0.0
         with:
-          image-ref: 'ghcr.io/marlluslustosa/onionize-docker:latest'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          severity: 'CRITICAL,HIGH'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          image: ghcr.io/marlluslustosa/onionize-docker:latest
