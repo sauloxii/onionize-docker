@@ -17,8 +17,7 @@ jobs:
       - name: Pull docker image
         run: docker pull imega/mariadb-client
 
-        #      - uses: homoluctus/gitrivy@v1.0.0
-      - uses: wochinge/gitrivy
+      - uses: homoluctus/gitrivy@v1.0.0
         id: trivy
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -52,5 +51,10 @@ jobs:
           fi
       
       - name: step condicional
-        if: ${{ steps.global-data.outputs.retornocurl == 1 }}
-        run: echo Deu certo a condicao do step
+        if: ${{ steps.global-data.outputs.retornocurl == 0 }}
+        #run: echo Deu certo a condicao do step
+        uses: mmichailidis/sendgrid-mail-action@v1.0
+        with:
+          sendgrid-token: ${{ secrets.SENDGRID_API_KEY }}
+          mail: 'marlluslustosa@gmail.com'
+
