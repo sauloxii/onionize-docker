@@ -12,9 +12,9 @@ jobs:
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         with:
-          fromMailAddress: 'cadlulu@riseup.net'
-          toMailAddress: 'marlluslustosa@gmail.com'
-          subject: 'This is a test'
+          fromMailAddress: cadlulu@riseup.net
+          toMailAddress: marlluslustosa@gmail.com
+          subject: This is a test
           subjectPrefix: 'BC:'
           labelsToMonitor: "trivy,vulnerability"
           verbose: false
