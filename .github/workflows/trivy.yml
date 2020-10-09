@@ -4,6 +4,11 @@ name: Vulnerability Scain (Trivy)
 #  schedule:
 #    - cron: '0 9 * * *'
 
+on:
+  push:
+    branches:
+      - master
+
 jobs:
   scan:
     name: Daily Vulnerability Scan
