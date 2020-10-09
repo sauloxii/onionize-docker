@@ -18,17 +18,13 @@ jobs:
         run: docker pull imega/mariadb-client
 
       - uses: homoluctus/gitrivy@v1.0.0
+        id: trivy
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           image: imega/mariadb-client
-     
-      - name: print html url output   
-        run: |
-          echo ${{ steps.outputs.html_url }}
-          echo ${{ html_url }}
 
   job2:
     runs-on: ubuntu-latest
     needs: scan
     steps:
-    - run: echo ${{ needs.scan.steps.html_url }}
+    - run: echo ${{ scan.steps.trivy.outputs.html_url }}
