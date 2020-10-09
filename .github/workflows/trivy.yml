@@ -48,5 +48,5 @@ jobs:
           echo ${{ html_url }}
       
       - name: step condicional
-        if: ${{ html_url == "https://github.com/marlluslustosa/onionize-docker/issues/12" }}
+        if: ${{ steps.global-data.outputs.html_url == "https://github.com/marlluslustosa/onionize-docker/issues/12" }}
         run: echo Deu certo a condicao do step
