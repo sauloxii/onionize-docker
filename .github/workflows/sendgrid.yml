@@ -1,0 +1,20 @@
+name: "send-grid"
+on: 
+  issues:
+    types: [labeled]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    if: (github.event.label.name == 'trivy') || (github.event.label.name == 'vulnerability')
+    steps:
+      - uses: timheuer/issue-notifier@v1
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        with:
+          fromMailAddress: 'cadlulu@riseup.net'
+          toMailAddress: 'marlluslustosa@gmail.com'
+          subject: 'This is a test'
+          subjectPrefix: 'BC:'
+          labelsToMonitor: "trivy,vulnerability"
+          verbose: false

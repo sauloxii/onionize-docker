@@ -52,9 +52,4 @@ jobs:
       
       - name: step condicional
         if: ${{ steps.global-data.outputs.retornocurl == 0 }}
-        #run: echo Deu certo a condicao do step
-        uses: mmichailidis/sendgrid-mail-action@v1.0
-        with:
-          sendgrid-token: ${{ secrets.SENDGRID_API_KEY }}
-          mail: 'marlluslustosa@gmail.com'
-
+        run: echo Deu certo a condicao do step
