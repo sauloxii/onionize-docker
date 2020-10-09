@@ -51,5 +51,5 @@ jobs:
           fi
       
       - name: step condicional
-        if: ${{ steps.global-data.outputs.retornocurl == 0 }}
+        if: ${{ steps.global-data.outputs.retornocurl == 1 }}
         run: echo Deu certo a condicao do step
