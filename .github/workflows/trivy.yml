@@ -24,12 +24,15 @@ jobs:
           image: imega/mariadb-client
 
       - name: print url html issue
-        run: echo ${{steps.trivy.outputs.html_url}}
+        run: |
+          echo ${{steps.trivy.outputs.html_url}}
+          echo ::set-output name=link::${{ steps.trivy.outputs.html_url }}
 
-
-  job2:
-    #runs-on: ubuntu-latest
+  jobinho:
+    runs-on: ubuntu-18.04
     needs: scan
     steps:
       #      - name: print url html issue 
-    - run: echo "${{ needs.scan.steps.trivy.outputs.html_url }}"
+    - run: |
+        echo "${{ needs.scan.steps.trivy.outputs.html_url }}"
+        echo "${{ needs.scan.steps.trivy.outputs.link }}"
