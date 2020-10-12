@@ -1,0 +1,18 @@
+name: notifica-membro-vulnerabilidade
+on:
+  issues:
+    types: [opened]
+jobs:
+  notifica:
+    runs-on: ubuntu-latest
+    if: (github.event.label.name == 'trivy') || (github.event.label.name == 'vulnerability')
+    steps:
+      - name: responde issue
+        env:
+          REPO: ${{ github.event.repository.name }}
+          OWNER: ${{ github.event.repository.owner.login }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          curl -s -X POST https://api.github.com/repos/$OWNER/$REPO/issues/$ISSUE_NUMBER/comments \
+            -d '{"body":"Ei, @marlluslustosa, pode dar uma olhada nessa issue?"}'
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
