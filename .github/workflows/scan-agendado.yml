@@ -1,0 +1,48 @@
+name: Workflow - scan agendado
+
+on:
+  schedule:
+    # toda segunda-feira às 5 horas da matina!
+    - cron: '0 5 * * 1'
+
+env:
+  # Variavel de ambiente vista para qualquer job
+  # nome da imagem - altere para o nome correto
+  IMAGE_NAME: nome-imagem
+
+jobs:
+  # procura vulnerabilidades na imagem gerada no passo anterior
+  scan:
+    # somente faz scan se o job anterior concluiu com êxito
+    needs: push
+    name: Vulnerability Scan
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Pull docker image
+        id: pullimage
+        run: |
+          docker pull ghcr.io/$/$IMAGE_NAME
+          # setar variavel local para repassar ao trivy
+          echo ::set-output name=nome_imagem::$IMAGE_NAME
+
+      # cria issue no repositório, se encontrar vulnerabilidades
+      - uses: homoluctus/gitrivy@v1.0.0
+        id: trivy
+        with:
+          token: $
+          # imagem que foi 'pusheada' no job anterior
+          image: ghcr.io/$/$
+          issue_title: Alerta de segurança
+
+      # comenta issue, citando reponsavel para resolucao
+      - name: responder issue
+        env:
+          REPO: $
+          OWNER: $
+          ISSUE_NUMBER: $
+        run: |
+          # se variavel de retorno html_url (do step trivy) contiver algo, isso quer dizer que foi criada uma issue, entao, comente-a.
+          if [ ! -z "$" ]; then
+            curl -s -X POST https://api.github.com/repos/$OWNER/$REPO/issues/$ISSUE_NUMBER/comments -d '{"body":"Ei, @marlluslustosa, pode dar uma olhada nessa issue?"}' -H "Authorization: Bearer $"
+          fi
+
