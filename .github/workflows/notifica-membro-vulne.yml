@@ -5,7 +5,8 @@ on:
 jobs:
   notifica:
     runs-on: ubuntu-latest
-    if: (github.event.label.name == 'trivy') || (github.event.label.name == 'vulnerability')
+    #if: (github.event.issue.label.name == 'trivy') || (github.event.label.name == 'vulnerability')
+    if: contains(github.event.issue.labels.*.name, 'trivy')
     steps:
       - name: responde issue
         env:
