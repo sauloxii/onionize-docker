@@ -13,7 +13,7 @@ jobs:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         with:
           fromMailAddress: cadlulu@riseup.net
-          toMailAddress: paulo.camelo@sti.ufc.br
+          toMailAddress: marllus.lustosa@sti.ufc.br
           subject: This is a test of vulnerability report
           subjectPrefix: 'BC:'
           labelsToMonitor: "trivy,vulnerability"
