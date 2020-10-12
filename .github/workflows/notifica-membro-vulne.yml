@@ -15,5 +15,5 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
           curl -s -X POST https://api.github.com/repos/$OWNER/$REPO/issues/$ISSUE_NUMBER/comments \
-            -d '{"body":"Ei, @marlluslustosa, pode dar uma olhada nessa issue?"}'
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -d '{"body":"Ei, @marlluslustosa, pode dar uma olhada nessa issue?"}' \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
