@@ -1,4 +1,4 @@
-name: Workflow - build/push
+name: Workflow - sendgrid pull push
 
 on:
   push:
@@ -86,7 +86,6 @@ jobs:
           to: marlluslustosa@gmail.com
           is-tls: true
           commit-message: true
-
       #- name: Send mail
         #uses: dawidd6/action-send-mail@v2
         #with:
