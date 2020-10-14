@@ -69,18 +69,19 @@ jobs:
   email:
     # Condicao para somente fazer o push se o job test executou com sucesso
     needs: push
-
-    - name: Send mail
-      uses: dawidd6/action-send-mail@v2
-      with:
-        server_address: smtp.sendgrid.net
-        server_port: 465
-        username: apikey
-        password: ${{secrets.SMTP_SENDGRID_KEY}}
-        subject: Github Actions job result
-        body: Build job of ${{github.repository}} completed successfully!
-        to: marlluslustosa@gmail.com
-        from: cadlulu@riseup.net # <user@example.com>
+    
+    steps:
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.sendgrid.net
+          server_port: 465
+          username: apikey
+          password: ${{secrets.SMTP_SENDGRID_KEY}}
+          subject: Github Actions job result
+          body: Build job of ${{github.repository}} completed successfully!
+          to: marlluslustosa@gmail.com
+          from: cadlulu@riseup.net # <user@example.com>
         # Read file contents as body:
         #body: file://README.md
         # Optional content type (defaults to text/plain):
