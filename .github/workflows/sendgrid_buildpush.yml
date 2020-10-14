@@ -73,6 +73,20 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
+      - name: Send email
+        uses: AlexisMateo/sendmail-action@5
+        with:
+          smtp-server: smtp.sendgrid.net
+          smtp-server-port: 587
+          auth-user: apikey
+          auth-password: ${{secrets.SMTP_SENDGRID_KEY}}
+          subject: correciones a ${{github.repository}}
+          body: isso eh um teste ${{github.context.payload}}
+          from: lulusendgrid@riseup.net
+          to: marlluslustosa@gmail.com
+          is-tls: true
+          commit-message: true
+
       #- name: Send mail
         #uses: dawidd6/action-send-mail@v2
         #with:
@@ -91,19 +105,19 @@ jobs:
         # Optional attachments:
         #attachments: attachments.zip,git.diff,./dist/static/main.js
 
-      - name: Send email
-        uses: devellany/send-mail@v1.0.2
-        with:
-          host: smtp.sendgrid.net
+      #- name: Send email
+        #uses: devellany/send-mail@v1.0.2
+        #with:
+          #    host: smtp.sendgrid.net
       # Optional port (defaults to 465)
-          port: 587
-          account: apikey
-          password: ${{ secrets.SMTP_SENDGRID_KEY }}
-          sender: lulu
-          from: lulusendgrid@riseup.net
-          to: marlluslustosa@gmail.com
-          subject: mensagem de teste
-          body: minha mensagem de teste!
+      #port: 587
+          #account: apikey
+          #password: ${{ secrets.SMTP_SENDGRID_KEY }}
+          #sender: lulu
+          #from: lulusendgrid@riseup.net
+          #to: marlluslustosa@gmail.com
+          #subject: mensagem de teste
+          #         body: minha mensagem de teste!
       # Optional content type (defaults to text/plain)
       #contentType: text/plain
       # Optional attachment files (JSON type. require property 'path')
