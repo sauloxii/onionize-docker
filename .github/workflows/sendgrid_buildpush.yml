@@ -80,4 +80,4 @@ jobs:
           #from definido no sendgrid - https://sendgrid.com/docs/API_Reference/SMTP_API/integrating_with_the_smtp_api.html
           from: marlluslustosa@gmail.com
           subject: Nova imagem no registry
-          text: Nova imagem enviada para o registry: https://ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+          #          text: 'Nova imagem enviada para o registry: https://ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME'
