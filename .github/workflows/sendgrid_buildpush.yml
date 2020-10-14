@@ -50,6 +50,7 @@ jobs:
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Push da imagem para GitHub Container Registry
+        id: push
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
           # Transformar nome da imagem de maiúsculas para minúsculas 
@@ -65,13 +66,8 @@ jobs:
           # comandos finais para push
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+          echo ::set-output name=link::$IMAGE_ID
   
-  email:
-    # Condicao para somente fazer o push se o anterior executou com sucesso
-    needs: push
-    runs-on: ubuntu-18.04
-
-    steps:
       - name: SendGrid Action
         uses: mmichailidis/sendgrid-mail-action@v1.0
         with:
@@ -80,4 +76,4 @@ jobs:
           #from definido no sendgrid - https://sendgrid.com/docs/API_Reference/SMTP_API/integrating_with_the_smtp_api.html
           from: lulusendgrid@riseup.net
           subject: Nova imagem no registry
-          text: Nova imagem enviada para o registry: ${{ github.repository_owner }}
+          text: Nova imagem enviada para o registry: ${{ steps.push.outputs.link }}
