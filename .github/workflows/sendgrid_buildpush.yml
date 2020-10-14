@@ -82,7 +82,7 @@ jobs:
           subject: Github Actions job result
           body: Build job of ${{github.repository}} completed successfully!
           to: marlluslustosa@gmail.com
-          from: cadlulu@riseup.net # <user@example.com>
+          from: lulusendgrid@riseup.net # <user@example.com>
         # Read file contents as body:
         #body: file://README.md
         # Optional content type (defaults to text/plain):
