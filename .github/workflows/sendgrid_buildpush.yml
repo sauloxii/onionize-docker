@@ -9,14 +9,13 @@ on:
 env:
   # Variavel de ambiente vista para qualquer job
   # nome da imagem - altere para o nome correto
-  IMAGE_NAME: nome-imagem
+  IMAGE_NAME: onionize-docker
 
 jobs:
   # Teste de build
   # Ver mais https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
 
     steps:
       - uses: actions/checkout@v2
@@ -37,7 +36,7 @@ jobs:
 
     runs-on: ubuntu-18.04
     # Só executa se o evento atual for push (e não um PR)
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'push'
 
     steps:
       - uses: actions/checkout@v2
@@ -68,8 +67,8 @@ jobs:
           docker push $IMAGE_ID:$VERSION
   
   email:
-    # Condicao para somente fazer o push se o job test executou com sucesso
-    #needs: push
+    # Condicao para somente fazer o push se o anterior executou com sucesso
+    needs: push
     runs-on: ubuntu-18.04
 
     steps:
@@ -77,5 +76,8 @@ jobs:
         uses: mmichailidis/sendgrid-mail-action@v1.0
         with:
           sendgrid-token: ${{ secrets.SENDGRID_API_KEY }}
-          mail: 'marlluslustosa@gmail.com'
-          from: lulusendgrid@riseup.net
+          mail: marlluslustosa@gmail.com #email de destino
+          #from definido no sendgrid - https://sendgrid.com/docs/API_Reference/SMTP_API/integrating_with_the_smtp_api.html
+          from: marlluslustosa@gmail.com
+          subject: Nova imagem no registry
+          text: Nova imagem enviada para o registry: https://ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
