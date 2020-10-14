@@ -69,7 +69,8 @@ jobs:
   email:
     # Condicao para somente fazer o push se o job test executou com sucesso
     needs: push
-    
+    runs-on: ubuntu-18.04
+
     steps:
       - name: Send mail
         uses: dawidd6/action-send-mail@v2
